@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
@@ -14,15 +16,41 @@ class PostsController extends Controller
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
-	public function index()
+	public function index(Request $request)
 	{
-		$posts = Post::paginate();
-		return view('posts.index', compact('posts'));
+		$category_id = $request['category_id'];
+		$posts = Post::paginate(10);
+		if($category_id > 0) {
+			$posts = Post::where('category_id', $category_id)->paginate(10);
+		} else {
+
+		}
+		$categories = Category::all();
+
+		$tags = Tag::all();
+
+		return view('posts.index', compact('posts', 'categories', 'tags'));
 	}
 
     public function show(Post $post)
     {
-        return view('posts.show', compact('post'));
+		$categories = Category::all();
+		$tags = Tag::all();
+
+		$prev_article = Post::where('id','<', $post->id)->orderBy('id', 'desc')->first();
+
+		if(empty($prev_article)) {
+			$prev_article = Post::orderBy('id', 'desc')->first();
+		}
+
+		$next_article = Post::where('id','>', $post->id)->first();
+
+		if(empty($next_article)) {
+			$next_article = Post::orderBy('id', 'asc')->first();
+		}
+
+
+		return view('posts.show', compact('post', 'categories', 'tags', 'prev_article', 'next_article'));
     }
 
 	public function create(Post $post)

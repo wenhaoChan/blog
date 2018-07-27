@@ -23,8 +23,10 @@
     <meta name="msapplication-TileImage" content="/i/app-icon72x72@2x.png">
     <meta name="msapplication-TileColor" content="#0e90d2">
 
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="/css/amazeui.min.css">
-    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/blog.css">
+
 </head>
 
 <body id="blog">
@@ -42,6 +44,7 @@
 </div>
 @include('layouts._footer')
 
+<script src="{{ asset('js/app.js') }}"></script>
 <!--[if (gte IE 9)|!(IE)]><!-->
 <script src="/js/jquery.min.js"></script>
 <!--<![endif]-->

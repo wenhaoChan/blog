@@ -6,39 +6,39 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h1>
-                    <i class="glyphicon glyphicon-align-justify"></i> Topic
-                    <a class="btn btn-success pull-right" href="{{ route('topics.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
+                    <i class="glyphicon glyphicon-align-justify"></i> Tag
+                    <a class="btn btn-success pull-right" href="{{ route('tags.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
                 </h1>
             </div>
 
             <div class="panel-body">
-                @if($topics->count())
+                @if($tags->count())
                     <table class="table table-condensed table-striped">
                         <thead>
                             <tr>
                                 <th class="text-center">#</th>
-                                <th>Title</th> <th>Body</th> <th>User_id</th> <th>Category_id</th> <th>Reply_count</th> <th>View_count</th> <th>Excerpt</th> <th>Slug</th>
+                                <th>Post_id</th> <th>Name</th>
                                 <th class="text-right">OPTIONS</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            @foreach($topics as $topic)
+                            @foreach($tags as $tag)
                                 <tr>
-                                    <td class="text-center"><strong>{{$topic->id}}</strong></td>
+                                    <td class="text-center"><strong>{{$tag->id}}</strong></td>
 
-                                    <td>{{$topic->title}}</td> <td>{{$topic->body}}</td> <td>{{$topic->user_id}}</td> <td>{{$topic->category_id}}</td> <td>{{$topic->reply_count}}</td> <td>{{$topic->view_count}}</td> <td>{{$topic->excerpt}}</td> <td>{{$topic->slug}}</td>
+                                    <td>{{$tag->post_id}}</td> <td>{{$tag->name}}</td>
                                     
                                     <td class="text-right">
-                                        <a class="btn btn-xs btn-primary" href="{{ route('topics.show', $topic->id) }}">
+                                        <a class="btn btn-xs btn-primary" href="{{ route('tags.show', $tag->id) }}">
                                             <i class="glyphicon glyphicon-eye-open"></i> 
                                         </a>
                                         
-                                        <a class="btn btn-xs btn-warning" href="{{ route('topics.edit', $topic->id) }}">
+                                        <a class="btn btn-xs btn-warning" href="{{ route('tags.edit', $tag->id) }}">
                                             <i class="glyphicon glyphicon-edit"></i> 
                                         </a>
 
-                                        <form action="{{ route('topics.destroy', $topic->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Delete? Are you sure?');">
+                                        <form action="{{ route('tags.destroy', $tag->id) }}" method="POST" style="display: inline;" onsubmit="return confirm('Delete? Are you sure?');">
                                             {{csrf_field()}}
                                             <input type="hidden" name="_method" value="DELETE">
 
@@ -49,7 +49,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {!! $topics->render() !!}
+                    {!! $tags->render() !!}
                 @else
                     <h3 class="text-center alert alert-info">Empty!</h3>
                 @endif
